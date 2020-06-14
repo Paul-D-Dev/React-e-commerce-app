@@ -1,11 +1,26 @@
+html {
+  font-size: 62.5%; /* 16px * 62.5% = 10 px so 1 rem = 10 px*/
+}
 body {
   margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-size: 1.6rem;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
 }
 
 code {
