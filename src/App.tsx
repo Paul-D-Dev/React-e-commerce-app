@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import data from './data'
 
 const openMenu = () => {
   const sidebar = document.querySelector('.sidebar');
@@ -35,14 +36,16 @@ const App = () => {
       <main className="main">
         <div className="content">
           <ul className="products">
-            <li>
-              <div className="product">
-                <img src="./images/vietnam.jpg" alt="product" className="product-image"/>
-                <a href="/" className="product-name">Viet Nam</a>
-                <div className="product-price">$ 2 499</div>
-                <div className="product-rating">4.5 stars (10 reviews)</div>
-              </div>
-            </li>
+            {
+              data.products.map(product => (
+                <li className="product">
+                  <img src={product.image} alt={product.name}className="product-image"/>
+                  <a href="/" className="product-name">{product.name}</a>
+                  <div className="product-price">$ {product.price}</div>
+                  <div className="product-rating">{product.rating} stars ({product.nbReviews} reviews)</div>
+                </li>
+                ))
+              }
 
           </ul>
         </div>
