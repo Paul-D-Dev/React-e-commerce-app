@@ -1,6 +1,7 @@
 const data =  {
     products : [
         {
+            id: 1,
             name: 'Viet Nam',
             category: 'Asia',
             image: '/images/vietnam.jpg',
@@ -9,6 +10,7 @@ const data =  {
             nbReviews: 10
         },
         {
+            id: 2,
             name: 'Marocco',
             category: 'Africa',
             image: '/images/marocco.jpg',
@@ -17,6 +19,7 @@ const data =  {
             nbReviews: 21
         },
         {
+            id: 3,
             name: 'Spain',
             category: 'Europe',
             image: '/images/spain.jpg',
@@ -25,6 +28,7 @@ const data =  {
             nbReviews: 32
         },
         {
+            id: 4,
             name: 'Paris',
             category: 'Europe',
             image: '/images/paris.jpg',
@@ -33,6 +37,7 @@ const data =  {
             nbReviews: 18
         },
         {
+            id: 5,
             name: 'New-York',
             category: 'North America',
             image: '/images/new-york.jpg',

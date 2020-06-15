@@ -1,6 +1,9 @@
 import React from 'react';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import './App.scss';
-import data from './data'
+import ProductDetail from './components/ProductDetail';
+import Home from './components/Home';
+
 
 const openMenu = () => {
   const sidebar = document.querySelector('.sidebar');
@@ -8,7 +11,9 @@ const openMenu = () => {
 }
 
 const App = () => {
+  
   return (
+  <Router>
     <div className="grid-container">
 
       <header className="header">
@@ -16,7 +21,7 @@ const App = () => {
           <button onClick={openMenu}>
             &#9776;
           </button>
-          <a href="/">Dream Travel</a>
+          <Link to="/">Dream Travel</Link>
         </div>
         <div className="header-links">
           <a href="cart">Cart</a>
@@ -25,7 +30,7 @@ const App = () => {
       </header>
 
       <aside className="sidebar">
-        <h3>Shopping Categories</h3>
+        <h3>World Categories</h3>
         <button onClick={openMenu} className="sidebar-close-btn">x</button>
         <ul>
           <li>Asia</li>
@@ -35,23 +40,14 @@ const App = () => {
 
       <main className="main">
         <div className="content">
-          <ul className="products">
-            {
-              data.products.map(product => (
-                <li className="product">
-                  <img src={product.image} alt={product.name}className="product-image"/>
-                  <a href="/" className="product-name">{product.name}</a>
-                  <div className="product-price">$ {product.price}</div>
-                  <div className="product-rating">{product.rating} stars ({product.nbReviews} reviews)</div>
-                </li>
-                ))
-              }
-
-          </ul>
+          <Route path="/products/:id" component={ProductDetail}></Route>
+          <Route path="/" exact ={true} component={Home}></Route>
         </div>
       </main>
+
       <footer className="footer">All right reserved.</footer>
     </div>
+    </Router>
   );
 }
 
