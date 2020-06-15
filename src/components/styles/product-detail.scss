@@ -1,0 +1,56 @@
+.back {
+    padding: 1rem;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+
+.details-image {
+    flex: 2 1 60rem;
+
+    img {
+        max-width: 60rem;
+        width: 100%;
+    }
+}
+
+.details-info li , .details-action li{
+    margin-bottom: 1rem;
+}
+
+.details-info {
+    flex: 1 1 30rem;
+}
+
+.details-action {
+    flex: 1 1 30rem;
+    border-radius: 0.5rem;
+    border: 1px solid #F0F0F0;
+    padding: 1rem;  
+
+    ul li:last-child{
+        display: flex;
+        flex-direction: column;
+
+        .details-action-btn {
+            padding: 1rem;
+            border: 0.1rem #808080 solid;
+            border-radius: 0.5rem;
+            cursor: pointer;
+
+            &:hover {
+                border-color: #404040;
+            }
+            &.primary {
+                background-color: rgba(105, 177, 177, 0.363);
+            }
+        }
+    }
+}
+
