@@ -1,14 +1,17 @@
 import React from 'react';
-import data from '../data';
 import { Link } from 'react-router-dom';
+import useProducts from '../hooks/product.hook';
 
 const Home = () => {
+
+    const products = useProducts();
+
     return (
         <div>
             <ul className="products">
             {
-                data.products.map(product => (
-                    <li className="product">
+                products.map(product => (
+                    <li className="product" key={product.id}>
                         <Link to={`products/${product.id}`}>
                             <img src={product.image} alt={product.name}className="product-image"/>
                         </Link>
