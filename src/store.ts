@@ -1,11 +1,12 @@
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
-import { productListReducer } from "./reducers/productReducers";
+import { productListReducer, productDetailReducer } from "./reducers/productReducers";
 import thunk from 'redux-thunk';
 
 
 const initialState = {};
 const reducer = combineReducers({
-    productList: productListReducer
+    productList: productListReducer,
+    productDetails: productDetailReducer
 })
 
 // Need to declare global to use Redux DEVTOOLS Extension

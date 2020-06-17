@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Product} from '../models/product';
+import { Product } from '../models/product';
 
 export default class ProductService {
 
@@ -11,4 +11,9 @@ export default class ProductService {
         // const data = await axios.get('/api/products').then( response => response.data)
         return data;
     }
-}
+
+    static async getProduct(id: number) : Promise<Product> {
+        const {data} = await axios.get(`/api/products/${id}`);
+        return data;
+    }
+ }

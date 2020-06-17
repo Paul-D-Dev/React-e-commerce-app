@@ -1,4 +1,4 @@
-import { Product } from './../models/product';
+import { Product } from '../models/product';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
@@ -14,7 +14,7 @@ interface RootState {
 }
     
 
-const useProducts = () => {
+const useProductsList = () => {
 
     const productList = useSelector((state: RootState) => state.productList);
     const {products, loading, error} = productList;
@@ -31,4 +31,4 @@ const useProducts = () => {
     return {products, loading, error};
 }
 
-export default useProducts;
+export default useProductsList;

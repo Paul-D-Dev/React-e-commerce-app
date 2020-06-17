@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useProducts from '../hooks/product.hook';
+import useProductsList from '../hooks/productsList.hook';
 
 const Home = () => {
 
-    const productsReducer = useProducts();
+    const productsReducer = useProductsList();
     const products = productsReducer.products;
 
     return (

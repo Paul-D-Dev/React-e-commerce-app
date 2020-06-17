@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import useProducts from '../hooks/product.hook';
+import useProductDetails from '../hooks/productDetails.hook';
 import './styles/product-detail.scss';
+
 
 type Params = {
     id: string;
@@ -9,17 +10,17 @@ type Params = {
 
 const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) => {
     
-    const productsReducer = useProducts();
+    const productReducer = useProductDetails(+match.params.id);
 
-    const product = productsReducer.products?.find(product => product.id === +match.params.id);
+    const product = productReducer.product;
     
     return (
 
-        productsReducer.loading? 
+        productReducer.loading? 
         <div>Loading ...</div> : 
         
-        productsReducer.error? 
-            <div>{productsReducer.error}</div> :
+        productReducer.error? 
+            <div>{productReducer.error}</div> :
 
         <div>
 
