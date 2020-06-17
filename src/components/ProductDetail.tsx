@@ -9,12 +9,20 @@ type Params = {
 
 const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) => {
     
-    const products = useProducts();
+    const productsReducer = useProducts();
 
-    const product = products.find(product => product.id === +match.params.id);
+    const product = productsReducer.products?.find(product => product.id === +match.params.id);
     
     return (
+
+        productsReducer.loading? 
+        <div>Loading ...</div> : 
+        
+        productsReducer.error? 
+            <div>{productsReducer.error}</div> :
+
         <div>
+
 
             <div className="back">
                 <Link to="/">Back to Home</Link>
