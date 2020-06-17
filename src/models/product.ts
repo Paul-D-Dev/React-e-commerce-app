@@ -6,4 +6,5 @@ export interface Product {
     price:     number;
     rating:    number;
     nbReviews: number;
+    quantity:  number;
 }
