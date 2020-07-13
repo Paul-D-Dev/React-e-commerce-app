@@ -2,8 +2,9 @@ import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import BackButton from './BackButton'
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import { ProductReducer } from '../models/product';
+import { qtyToArray } from '../helpers/methods';
 import './styles/cart.scss'
 
 
@@ -41,8 +42,8 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
 
     const subTotal = subTotalMethod(cartItems);
 
-    const removeFromCartHandler = () => {
-
+    const removeFromCartHandler = (productId: number) => {
+        dispatch(removeFromCart(productId));
     }
 
     const dispatch = useDispatch();
@@ -69,7 +70,7 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
 
                         {
                             cartItems.length === 0 ? 
-                                <li>Cart is empty</li>
+                                <div>Cart is empty</div>
                             :
                                 cartItems.map( item => 
                                     <li key={item.id}>
@@ -82,12 +83,12 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
                                             <Link to={"/products/" + item.id}>{item.name}</Link>
                                             <div>
                                                 Quantity
-                                                <select>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
+                                                <select value={item.quantity} onChange={(e) => dispatch(addToCart(item.id, +e.target.value))}>
+                                                    {qtyToArray(item.stock).map(x => (
+                                                        <option key={x+1} value={x+1}>{x + 1}</option>
+                                                    ))}
                                                 </select>
-                                                <button type="button" className="button" onClick={removeFromCartHandler}>
+                                                <button type="button" className="button" onClick={() => removeFromCartHandler(item.id)}>
                                                     Delete
                                                 </button>
                                             </div>

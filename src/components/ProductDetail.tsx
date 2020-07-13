@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Link, RouteComponentProps, useHistory } from 'react-router-dom';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 import useProductDetails from '../hooks/productDetails.hook';
+import BackButton from './BackButton';
 import './styles/product-detail.scss';
-import BackButton from './BackButton'
+import { qtyToArray } from '../helpers/methods';
 
 
 type Params = {
@@ -26,14 +27,6 @@ const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) 
 
     const handleAddToCart = () => {
         history.push(`/cart/products${match.params.id}?qty=${qty}`)
-    }
-
-    const fewQuatity = (qty: number) => {
-        const array = []
-        for (let i = 0; i < qty; i++) {
-            array.push(i);
-        }
-        return array;
     }
     
     return (
@@ -108,7 +101,7 @@ const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) 
                                 Traveller's number: 
 
                                     <select value={qty} onChange={numberTraverllers}>
-                                    { fewQuatity(product.stock).map(x => (
+                                    { qtyToArray(product.stock).map(x => (
                                         <option key={x+1} value={x+1}>{x + 1}</option>
                                         ))}
                                 </select>
