@@ -105,7 +105,7 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
 
                 <div className="cart-action">
                     <h3>Subtotal ( {subTotal.qty} items) : $ {subTotal.price} </h3>
-                    <button className="button primary" disabled={cartItems.length === 0}>
+                    <button className="button primary width100" disabled={cartItems.length === 0}>
                         Proceed to Checkout
                     </button>
                 </div>
