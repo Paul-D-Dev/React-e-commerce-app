@@ -4,9 +4,11 @@ import { cartReducer } from './reducers/cartReducer';
 import thunk from 'redux-thunk';
 import Cookie from 'js-cookie';
 
+// Get back the cart saved when we add to cart to have all the products in the initial state
 const cartItems = Cookie.getJSON('cartItems') || [];
 
 const initialState = {cart: {cartItems}};
+
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailReducer,
