@@ -6,5 +6,14 @@ export interface Product {
     price:     number;
     rating:    number;
     nbReviews: number;
-    quantity:  number;
+    stock:  number;
+}
+
+export interface ProductReducer {
+    id: number,
+    name: string,
+    image: string,
+    price: number,
+    stock: number,
+    quantity: number
 }

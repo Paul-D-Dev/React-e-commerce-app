@@ -77,20 +77,20 @@ const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) 
                             Price : $ {product?.price}
                         </li>
                         {
-                            product.quantity > 10 ? 
+                            product.stock > 10 ? 
                                 <li>
                                     Trip available
                                 </li>
                             : (
-                            product.quantity > 1 &&
+                            product.stock > 1 &&
                                 <li>
-                                Only {product.quantity} trips left !   
+                                Only {product.stock} trips left !   
                                 </li>
                             )
                         }
 
 
-                        { product.quantity > 10 ?
+                        { product.stock > 10 ?
                             <li>
                                 Traveller's number: 
                                 <select value={qty} onChange={numberTraverllers}>
@@ -103,12 +103,12 @@ const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) 
                                 </select>
                             </li>
                             : (
-                                product.quantity > 1 &&
+                                product.stock > 1 &&
                             <li>
                                 Traveller's number: 
 
                                     <select value={qty} onChange={numberTraverllers}>
-                                    { fewQuatity(product.quantity).map(x => (
+                                    { fewQuatity(product.stock).map(x => (
                                         <option key={x+1} value={x+1}>{x + 1}</option>
                                         ))}
                                 </select>
@@ -119,7 +119,7 @@ const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) 
                         
                             
                         {
-                            product.quantity > 0 ?
+                            product.stock > 0 ?
                                 <li>
                                     <button className="details-action-btn primary" onClick={handleAddToCart}>Add to cart</button>
                                 </li>

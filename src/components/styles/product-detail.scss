@@ -1,3 +1,5 @@
+@import '../../helpers/mixin.scss';
+
 .back {
     padding: 1rem;
 }
@@ -39,17 +41,7 @@
         flex-direction: column;
 
         .details-action-btn {
-            padding: 1rem;
-            border: 0.1rem #808080 solid;
-            border-radius: 0.5rem;
-            cursor: pointer;
-
-            &:hover {
-                border-color: #404040;
-            }
-            &.primary {
-                background-color: rgba(105, 177, 177, 0.363);
-            }
+            @include button-action
         }
     }
 }

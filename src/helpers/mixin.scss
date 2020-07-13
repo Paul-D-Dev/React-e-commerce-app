@@ -1,0 +1,16 @@
+$primary-bg : rgba(105, 177, 177, 0.5);
+$hover-bg : rgba(105, 177, 177, 0.8);
+
+@mixin button-action {
+    border: none;
+
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+    &.primary {
+        background-color: $primary-bg;
+    }
+    &:hover {
+        background-color: $hover-bg;
+    }
+}

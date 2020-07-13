@@ -1,10 +1,10 @@
-import { Product } from './../models/product';
 import { CART_ADD_ITEM } from "../constants/cartConstants";
+import { ProductReducer } from './../models/product';
 
 
-type ActionCart = {type : 'CART_ADD_ITEM', product: Product};
+type ActionCart = {type : 'CART_ADD_ITEM', product: ProductReducer};
 
-const cartItems: Product[] = []
+const cartItems: ProductReducer[] = []
 
 const cartReducer = (state = {cartItems}, action: ActionCart) => {
     switch (action.type) {
@@ -22,4 +22,4 @@ const cartReducer = (state = {cartItems}, action: ActionCart) => {
     }
 }
 
-export {cartReducer};
+export { cartReducer };

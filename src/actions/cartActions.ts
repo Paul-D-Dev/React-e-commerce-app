@@ -2,7 +2,7 @@ import { CART_ADD_ITEM, CART_REMOVE_ITEM } from './../constants/cartConstants';
 import CartService from "../services/cart.service";
 import Cookie from 'js-cookie';
 
-const addToCart = (productId: number, qty: number) => async (dispatch: any, getState: any) => {
+const addToCart = (productId: number, quantity: number) => async (dispatch: any, getState: any) => {
     try {
         const data = await CartService.getCart(productId);
         dispatch({
@@ -11,8 +11,8 @@ const addToCart = (productId: number, qty: number) => async (dispatch: any, getS
                 name: data.name,
                 image: data.image,
                 price: data.price,
-                stock: data.quantity,
-                qty
+                stock: data.stock,
+                quantity
             }
         });
         const { cart: {cartItems}} = getState();
