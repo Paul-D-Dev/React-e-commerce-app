@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import { RouteComponentProps, Link } from 'react-router-dom';
-import BackButton from './BackButton'
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, RouteComponentProps, useHistory } from 'react-router-dom';
 import { addToCart, removeFromCart } from '../actions/cartActions';
-import { ProductReducer } from '../models/product';
 import { qtyToArray } from '../helpers/methods';
-import './styles/cart.scss'
+import { ProductReducer } from '../models/product';
+import BackButton from './BackButton';
+import './styles/cart.scss';
 
 
 type Params = {
@@ -22,7 +22,8 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
 
     const productId = +match.params.id;
     const qtyProduct = +location.search.split('=')[1];
-
+    const history = useHistory();
+    
 
     // Acces to cart from the store redux
     const cart = useSelector((state: Rootstate) => state.cart)
@@ -35,15 +36,25 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
         let price = 0;
         for (const item of cartItems) {               
             qty = qty + item.quantity;
-            price = price + item.price * item.quantity;            
-        }        
+            price = price + item.price * item.quantity;       
+        }
         return {qty, price};
     }
 
     const subTotal = subTotalMethod(cartItems);
 
+    const modifyQtyFromCart = (productId: number, e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newQty = +e.target.value
+        dispatch(addToCart(productId, newQty))
+        history.replace('/cart/products3?qty=' + newQty)
+    }
+
     const removeFromCartHandler = (productId: number) => {
         dispatch(removeFromCart(productId));
+    }
+
+    const checkoutHandler = () => {
+        history.push('/signin?redirect=shipping')
     }
 
     const dispatch = useDispatch();
@@ -83,7 +94,7 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
                                             <Link to={"/products/" + item.id}>{item.name}</Link>
                                             <div>
                                                 Quantity
-                                                <select value={item.quantity} onChange={(e) => dispatch(addToCart(item.id, +e.target.value))}>
+                                                <select value={item.quantity} onChange={(e) => modifyQtyFromCart(item.id, e)}>
                                                     {qtyToArray(item.stock).map(x => (
                                                         <option key={x+1} value={x+1}>{x + 1}</option>
                                                     ))}
@@ -105,7 +116,7 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
 
                 <div className="cart-action">
                     <h3>Subtotal ( {subTotal.qty} items) : $ {subTotal.price} </h3>
-                    <button className="button primary width100" disabled={cartItems.length === 0}>
+                    <button className="button primary width100" disabled={cartItems.length === 0} onClick={checkoutHandler}>
                         Proceed to Checkout
                     </button>
                 </div>
