@@ -1,7 +1,8 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps, useHistory } from 'react-router-dom';
 import useProductDetails from '../hooks/productDetails.hook';
 import './styles/product-detail.scss';
+import BackButton from './BackButton'
 
 
 type Params = {
@@ -18,6 +19,13 @@ const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) 
 
     const numberTraverllers = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setQty(+e.target.value);
+    }
+
+    // useHistory get the current url
+    const history = useHistory()
+
+    const handleAddToCart = () => {
+        history.push(`/cart/products${match.params.id}?qty=${qty}`)
     }
 
     const fewQuatity = (qty: number) => {
@@ -38,10 +46,7 @@ const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) 
 
         <div>
 
-
-            <div className="back">
-                <Link to="/">Back to Home</Link>
-            </div>
+            <BackButton/>
 
             <div className="details">
 
@@ -116,7 +121,7 @@ const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) 
                         {
                             product.quantity > 0 ?
                                 <li>
-                                    <button className="details-action-btn primary">Add to cart</button>
+                                    <button className="details-action-btn primary" onClick={handleAddToCart}>Add to cart</button>
                                 </li>
                             :   
                             <li>Sold out</li>

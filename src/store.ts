@@ -1,12 +1,16 @@
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { productListReducer, productDetailReducer } from "./reducers/productReducers";
+import { cartReducer } from './reducers/cartReducer';
 import thunk from 'redux-thunk';
+import Cookie from 'js-cookie';
 
+const cartItems = Cookie.getJSON('cartItems') || [];
 
-const initialState = {};
+const initialState = {cart: {cartItems}};
 const reducer = combineReducers({
     productList: productListReducer,
-    productDetails: productDetailReducer
+    productDetails: productDetailReducer,
+    cart: cartReducer
 })
 
 // Need to declare global to use Redux DEVTOOLS Extension
