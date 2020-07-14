@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { saveShipping } from '../actions/cartActions';
+import  CheckoutSteps  from '../components/CheckoutSteps';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -29,53 +31,60 @@ const Shipping = () => {
     };
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(saveShipping({address, city, country, zip}))
+        history.push('/payment');
     };
 
 
     return (
-        <div className='form'>
 
-        <form onSubmit={submitHandler}>
+        <div>
+                <CheckoutSteps step1 step2></CheckoutSteps>
 
-            <ul className="form-container">
+                <div className='form'>
 
-                <li>
-                    <h2>Shipping</h2>
-                </li>
+                    <form onSubmit={submitHandler}>
 
-                <li>
-                    <label htmlFor="address">Address</label>
-                    <input type="text" id="address" onChange={(e) => setAddressInput(e.target.value)}/>
-                </li>
+                        <ul className="form-container">
 
-                <li>
-                    <label htmlFor="city">City</label>
-                    <input type="text" id="city" onChange={(e) => setCityInput(e.target.value)}/>
-                </li>
+                            <li>
+                                <h2>Shipping</h2>
+                            </li>
 
-                <li>
-                    <label htmlFor="zip">Zip Code</label>
-                    <input type="text" name="zip" id="zip" onChange={(e) => setZipInput(e.target.value)}/>
-                </li>
+                            <li>
+                                <label htmlFor="address">Address</label>
+                                <input type="text" id="address" onChange={(e) => setAddressInput(e.target.value)}/>
+                            </li>
 
-                <li>
-                    <label htmlFor="country">Country</label>
-                    <input type="text" name="country" id="country" onChange={(e) => setCountryInput(e.target.value)}/>
-                </li>
+                            <li>
+                                <label htmlFor="city">City</label>
+                                <input type="text" id="city" onChange={(e) => setCityInput(e.target.value)}/>
+                            </li>
 
-                <li>
-                    <button type="submit" className="button primary">Continue</button>
-                </li>
+                            <li>
+                                <label htmlFor="zip">Zip Code</label>
+                                <input type="text" name="zip" id="zip" onChange={(e) => setZipInput(e.target.value)}/>
+                            </li>
 
-            </ul>
+                            <li>
+                                <label htmlFor="country">Country</label>
+                                <input type="text" name="country" id="country" onChange={(e) => setCountryInput(e.target.value)}/>
+                            </li>
 
-        </form>
+                            <li>
+                                <button type="submit" className="button primary">Continue</button>
+                            </li>
 
-    </div>
+                        </ul>
+
+                    </form>
+
+                </div>
+        </div>
     )
 }
 

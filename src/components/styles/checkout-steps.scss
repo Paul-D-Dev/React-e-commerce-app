@@ -1,0 +1,21 @@
+$hover-bg : rgba(105, 177, 177, 0.8);
+
+
+.checkout-steps {
+    display: flex;
+    margin: 1rem auto;
+    width: 40rem;
+    justify-content: space-between;
+
+    div {
+        padding-top: 1rem;
+        border-top: .3rem solid #C0C0C0;
+        color: #C0C0C0;
+        flex: 1 1;
+        text-align: center;
+    }
+    div.active {
+        border-top: .3rem solid $hover-bg;
+        color: $hover-bg
+    }
+}
