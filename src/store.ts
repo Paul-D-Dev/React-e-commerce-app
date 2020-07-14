@@ -1,18 +1,22 @@
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { productListReducer, productDetailReducer } from "./reducers/productReducers";
 import { cartReducer } from './reducers/cartReducer';
+import { userSignInReducer } from './reducers/userReducer';
 import thunk from 'redux-thunk';
 import Cookie from 'js-cookie';
 
 // Get back the cart saved when we add to cart to have all the products in the initial state
 const cartItems = Cookie.getJSON('cartItems') || [];
 
-const initialState = {cart: {cartItems}};
+const userInfos = Cookie.getJSON('userInfos') || null;
+
+const initialState = {cart: {cartItems}, user : {userInfos}};
 
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    user: userSignInReducer,
 })
 
 // Need to declare global to use Redux DEVTOOLS Extension

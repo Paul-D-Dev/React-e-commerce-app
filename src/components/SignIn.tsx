@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { signin } from '../actions/userActions';
 import './styles/sign-in.scss';
+import { User } from '../models/user';
 
+
+type payloadUser = {
+    loading: boolean,
+    // Same userInfos from store redux
+    userInfos: User,
+    error: string,
+}
+
+interface Rootstate {
+    user: payloadUser;
+}
 
 const SignIn = () => {
 
@@ -19,15 +32,22 @@ const SignIn = () => {
 
     const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(email);
-        console.log(password);
+        dispatch(signin(email, password))
     };
-    
+
+    // Get the user from the store.user
+    const userSignin = useSelector((state: Rootstate) => state.user)
+    // desctructure the object user.
+    const { loading, userInfos, error } = userSignin;
+
     const dispatch = useDispatch()
+    const history = useHistory();
 
-    useEffect(() => {
-
-    }, [])
+    useEffect(() => {        
+        if(userInfos) {
+            history.push('/')
+        }
+    }, [history, userInfos])
 
     
     return (
@@ -39,6 +59,12 @@ const SignIn = () => {
 
                     <li>
                         <h2>Sign-In</h2>
+                    </li>
+
+                    <li>
+                        {loading && <div>Loading...</div>}
+                        {error && <div>{error}</div>}
+                        {userInfos && <div>{userInfos.name}</div>}
                     </li>
 
                     <li>
