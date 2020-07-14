@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createTravel, deleteTravel, listProducts } from '../actions/productActions';
 import '../components/styles/sign-in.scss';
 import { Product } from '../models/product';
+import './styles/travels.scss';
 
 
 
@@ -164,19 +165,19 @@ const Travels = () => {
                     
 
                     <div className="travel-list">
-                        <table>
-                            <thead>
+                        <table className="width100">
+                            <thead className="text-center">
                                 <tr>
                                     <td>ID</td>
                                     <td>Name</td>
                                     <td>Category</td>
                                     <td>Price</td>
                                     <td>Stock</td>
-                                    <td></td>
+                                    <td>Actions</td>
                                 </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody className="tbody text-center">
                                 {products.map(product => (
                                     <tr key={product._id}>
                                         <td>{product._id}</td>
@@ -184,9 +185,9 @@ const Travels = () => {
                                         <td>{product.category}</td>
                                         <td>{product.price}</td>
                                         <td>{product.stock}</td>
-                                        <td>
-                                            <button onClick={() => openModal(product)}>Edit</button>
-                                            <button onClick={() => deleteHandler(product)}>Delete</button>
+                                        <td className="btn-actions">
+                                            <button className="button" onClick={() => openModal(product)}>Edit</button>
+                                            <button className="button" onClick={() => deleteHandler(product)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))}

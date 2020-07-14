@@ -1,0 +1,18 @@
+
+.content-margined {
+    margin: 2rem;
+}
+
+.travel-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tbody >tr:nth-child(odd){
+    background-color: #F0F0F0;
+}
+
+.btn-actions {
+    display: flex;
+    justify-content: space-evenly ;
+}

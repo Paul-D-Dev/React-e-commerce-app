@@ -7,6 +7,7 @@ $hover-bg : rgba(105, 177, 177, 0.8);
 
     padding: 1rem;
     border-radius: 0.5rem;
+    transition: all .5s ease-in-out;
 
     &.primary {
         background-color: $primary-bg;
