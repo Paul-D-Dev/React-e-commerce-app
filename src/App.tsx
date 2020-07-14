@@ -5,6 +5,7 @@ import ProductDetail from './components/ProductDetail';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import SignIn from './components/SignIn';
+import Register from './components/Register';
 import { useSelector } from 'react-redux';
 import { User } from './models/user';
 
@@ -18,6 +19,7 @@ type payloadUser = {
 
 interface Rootstate {
   userSignin: payloadUser;
+  userRegister: payloadUser;
 }
 
 const openMenu = () => {
@@ -28,9 +30,8 @@ const openMenu = () => {
 const App = () => {
 
   const userSignin = useSelector((state: Rootstate) => state.userSignin);
-  const { userInfos } = userSignin;
-  console.log(userInfos);
-  
+  const userRegister = useSelector((state: Rootstate) => state.userRegister);
+  const { userInfos } = userSignin || userRegister;  
   
   return (
   <Router>
@@ -44,7 +45,7 @@ const App = () => {
           </button>
           <Link to="/">Dream Travel</Link>
         </div>
-        
+
         <div className="header-links">
           <a href="cart">Cart</a>
 
@@ -70,6 +71,7 @@ const App = () => {
 
       <main className="main">
         <div className="content">
+          <Route path='/register' component={Register}></Route>
           <Route path='/signin' component={SignIn}></Route>
           <Route path="/products/:id" component={ProductDetail}></Route>
           <Route path="/cart/products:id?" component={Cart}/>
