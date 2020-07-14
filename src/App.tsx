@@ -4,6 +4,7 @@ import './App.scss';
 import ProductDetail from './components/ProductDetail';
 import Home from './components/Home';
 import Cart from './components/Cart';
+import SignIn from './components/SignIn';
 
 
 const openMenu = () => {
@@ -26,7 +27,7 @@ const App = () => {
         </div>
         <div className="header-links">
           <a href="cart">Cart</a>
-          <a href="signin">Sign in</a>
+          <Link to="/signin">Sign in</Link>
         </div>
       </header>
 
@@ -41,6 +42,7 @@ const App = () => {
 
       <main className="main">
         <div className="content">
+          <Route path='/signin' component={SignIn}></Route>
           <Route path="/products/:id" component={ProductDetail}></Route>
           <Route path="/cart/products:id?" component={Cart}/>
           <Route path="/" exact ={true} component={Home}></Route>
