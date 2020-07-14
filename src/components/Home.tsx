@@ -18,11 +18,11 @@ const Home = () => {
                 <ul className="products">
                 {
                     products.map(product => (
-                        <li className="product" key={product.id}>
-                            <Link to={`products/${product.id}`}>
+                        <li className="product" key={product._id}>
+                            <Link to={`products/${product._id}`}>
                                 <img src={product.image} alt={product.name}className="product-image"/>
                             </Link>
-                            <Link to={`products/${product.id}`} className="product-name">{product.name}</Link>
+                            <Link to={`products/${product._id}`} className="product-name">{product.name}</Link>
                             <div className="product-price">$ {product.price}</div>
                             <div className="product-rating">{product.rating} stars ({product.nbReviews} reviews)</div>
                         </li>

@@ -7,7 +7,7 @@ const addToCart = (productId: number, quantity: number) => async (dispatch: any,
         const data = await CartService.getCart(productId);
         dispatch({
             type : CART_ADD_ITEM, product : {
-                id: data.id,
+                id: data._id,
                 name: data.name,
                 image: data.image,
                 price: data.price,
