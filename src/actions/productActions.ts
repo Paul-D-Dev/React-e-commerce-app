@@ -2,7 +2,7 @@ import { Product } from './../models/product';
 import ProductService from '../services/product.service';
 import {
     PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REQUEST,
-    PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST,  PRODUCT_LIST_SUCCESS, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_CREATE_FAIL
+    PRODUCT_DETAILS_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST,  PRODUCT_LIST_SUCCESS, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_CREATE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL
 } from './../constants/productConstants';
 
 
@@ -34,7 +34,7 @@ const createTravel = (travel: Product) => async (dispatch: any, getState: any) =
         
         if(travel._id) {
             const data = await ProductService.updateTravel(travel, userInfos.token);
-            dispatch({type: PRODUCT_CREATE_SUCCESS, payload: data})
+            dispatch({type: PRODUCT_CREATE_SUCCESS, payload: data, success: true})
         } else {
             const data = await ProductService.addTravel(travel, userInfos.token)
             dispatch({type: PRODUCT_CREATE_SUCCESS, payload: data})
@@ -45,4 +45,16 @@ const createTravel = (travel: Product) => async (dispatch: any, getState: any) =
     }
 }
 
-export { listProducts, productDetails, createTravel };
+const deleteTravel = (id: string) => async (dispatch: any, getState: any) => {
+    try {
+        dispatch({type : PRODUCT_DELETE_REQUEST});    
+        const { userSignin: { userInfos } } = getState();  
+        const data = await ProductService.deleteTravel(id, userInfos.token);
+        dispatch({type: PRODUCT_DELETE_SUCCESS, payload: data})
+
+    } catch (error) {
+        dispatch({type: PRODUCT_DELETE_FAIL, payload: error.message})
+    }
+}
+
+export { listProducts, productDetails, createTravel, deleteTravel };

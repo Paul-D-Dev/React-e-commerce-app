@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTravel, listProducts } from '../actions/productActions';
+import { createTravel, deleteTravel, listProducts } from '../actions/productActions';
 import '../components/styles/sign-in.scss';
 import { Product } from '../models/product';
 
@@ -20,6 +20,7 @@ type productList = {
 
 interface Rootstate {
     createTravel: payloadTravel;
+    deleteTravel: payloadTravel;
     productList: productList;
 }
 
@@ -65,22 +66,29 @@ const Travels = () => {
         }
     }
 
+    const deleteHandler = (travel: Product) => {
+        if (travel._id) {
+            dispatch(deleteTravel(travel._id));
+        }
+    }
 
     const travelSave = useSelector((state: Rootstate) => state.createTravel);
     const { loading: loadingCreate, success: successCreate, error: errorCreate } = travelSave;
 
+    const travelDelete = useSelector((state: Rootstate) => state.deleteTravel); 
+    const { success: successDelete } = travelDelete;
 
     const productList = useSelector((state: Rootstate) => state.productList);
-    const { loading, products, error } = productList; 
+    const { products} = productList; 
 
     const dispatch = useDispatch()
 
     useEffect(() => {    
         if(successCreate) {
             setModal(false);
-        }    
+        } 
         dispatch(listProducts());
-    }, [dispatch, successCreate])
+    }, [dispatch, successCreate, successDelete])
 
     
 
@@ -103,7 +111,9 @@ const Travels = () => {
                                 <ul className="form-container">
 
                                     <li>
-                                        <h2>Add a new travel</h2>
+                                        <h2>
+                                            {_id ? 'Update Travel' : 'Add a new travel'}
+                                        </h2>
                                     </li>
 
                                     <li>
@@ -168,7 +178,7 @@ const Travels = () => {
 
                             <tbody>
                                 {products.map(product => (
-                                    <tr>
+                                    <tr key={product._id}>
                                         <td>{product._id}</td>
                                         <td>{product.name}</td>
                                         <td>{product.category}</td>
@@ -176,7 +186,7 @@ const Travels = () => {
                                         <td>{product.stock}</td>
                                         <td>
                                             <button onClick={() => openModal(product)}>Edit</button>
-                                            <button>Delete</button>
+                                            <button onClick={() => deleteHandler(product)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))}

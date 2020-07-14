@@ -1,5 +1,5 @@
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
-import { productListReducer, productDetailReducer, createTravelReducer } from "./reducers/productReducers";
+import { productListReducer, productDetailReducer, createTravelReducer, deleteTravelReducer } from "./reducers/productReducers";
 import { cartReducer } from './reducers/cartReducer';
 import { userSignInReducer, userRegisterReducer } from './reducers/userReducer';
 import thunk from 'redux-thunk';
@@ -18,7 +18,8 @@ const reducer = combineReducers({
     cart: cartReducer,
     userSignin: userSignInReducer,
     userRegister: userRegisterReducer,
-    createTravel: createTravelReducer
+    createTravel: createTravelReducer,
+    deleteTravel: deleteTravelReducer 
 })
 
 // Need to declare global to use Redux DEVTOOLS Extension

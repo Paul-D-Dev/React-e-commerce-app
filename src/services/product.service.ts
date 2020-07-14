@@ -32,4 +32,11 @@ export default class ProductService {
         }})
         return data;
     }
+
+    static async deleteTravel(id: string, token: string) {
+        return await axios.delete(`/api/products/${id}`, 
+        {headers : {
+            'Authorization': 'Bearer ' + token
+        }})
+    }
  }
