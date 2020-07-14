@@ -25,11 +25,13 @@ interface Rootstate {
 
 const Travels = () => {
 
+    const [id, setId]               = useState('');
     const [name, setName]           = useState('');
     const [category, setCategory]   = useState('');
     const [price, setPrice]         = useState(0);
     const [stock, setStock]         = useState(0);
     const [image, setImage]         = useState('');
+    const [modal, setModal]         = useState(false);
     
 
     const setNameInput      = (name : string)     => setName(name);
@@ -44,6 +46,16 @@ const Travels = () => {
         dispatch(createTravel({name, category, image, price, stock}))
     };
 
+    const openModal = (travel: Product) => {
+        setModal(true);
+        setId(travel._id || '')
+        setNameInput(travel.name)
+        setCategoryInput(travel.category)
+        setImageInput(travel.image)
+        setPriceInput(travel.price)
+        setStockInput(travel.stock)
+    }
+
     const travaelSave = useSelector((state: Rootstate) => state.createTravel);
     const { loading: loadingCreate, success, error: errorCreate } = travaelSave;
 
@@ -57,6 +69,7 @@ const Travels = () => {
     }, [dispatch])
 
     
+
     return (
 
 
@@ -64,59 +77,67 @@ const Travels = () => {
 
                     <div className="travel-header">
                         <h3>Travels</h3>
-                        <button>Create Travel</button>
+                        <button className="button primary" onClick={() => setModal(true)}>Create Travel</button>
                     </div>
 
-                    <div className='form'>
+                    {
+                        modal && 
+                            <div className='form'>
 
-                        <form onSubmit={submitHandler}>
+                            <form onSubmit={submitHandler}>
 
-                            <ul className="form-container">
+                                <ul className="form-container">
 
-                                <li>
-                                    <h2>Add a new travel</h2>
-                                </li>
+                                    <li>
+                                        <h2>Add a new travel</h2>
+                                    </li>
 
-                                <li>
-                                    {loadingCreate && <div>Loading...</div>}
-                                    {errorCreate && <div>{errorCreate}</div>}
-                                    {success && <div>Travel adding</div>}
-                                </li>
+                                    <li>
+                                        {loadingCreate && <div>Loading...</div>}
+                                        {errorCreate && <div>{errorCreate}</div>}
+                                        {success && <div>Travel adding</div>}
+                                    </li>
 
-                                <li>
-                                    <label htmlFor="name">Name</label>
-                                    <input type="text" id="name" onChange={(e) => setNameInput(e.target.value)}/>
-                                </li>
+                                    <li>
+                                        <label htmlFor="name">Name</label>
+                                        <input type="text" id="name" value={name} onChange={(e) => setNameInput(e.target.value)}/>
+                                    </li>
 
-                                <li>
-                                    <label htmlFor="category">Category</label>
-                                    <input type="text" id="category" onChange={(e) => setCategoryInput(e.target.value)}/>
-                                </li>
+                                    <li>
+                                        <label htmlFor="category">Category</label>
+                                        <input type="text" id="category" value={category} onChange={(e) => setCategoryInput(e.target.value)}/>
+                                    </li>
 
-                                <li>
-                                    <label htmlFor="image">Image</label>
-                                    <input type="text" name="image" id="image" onChange={(e) => setImageInput(e.target.value)}/>
-                                </li>
+                                    <li>
+                                        <label htmlFor="image">Image</label>
+                                        <input type="text" name="image" id="image" value={image} onChange={(e) => setImageInput(e.target.value)}/>
+                                    </li>
 
-                                <li>
-                                    <label htmlFor="price">Price ($)</label>
-                                    <input type="number" name="price" id="price" value={price} onChange={(e) => setPriceInput(+e.target.value)}/>
-                                </li>
+                                    <li>
+                                        <label htmlFor="price">Price ($)</label>
+                                        <input type="number" name="price" id="price" value={price} onChange={(e) => setPriceInput(+e.target.value)}/>
+                                    </li>
 
-                                <li>
-                                    <label htmlFor="stock">Stock</label>
-                                    <input type="number" name="stock" id="stock" value={stock} onChange={(e) => setStockInput(+e.target.value)}/>
-                                </li>
+                                    <li>
+                                        <label htmlFor="stock">Stock</label>
+                                        <input type="number" name="stock" id="stock" value={stock} onChange={(e) => setStockInput(+e.target.value)}/>
+                                    </li>
 
-                                <li>
-                                    <button type="submit" className="button primary">ADD</button>
-                                </li>
+                                    <li>
+                                        <button type="submit" className="button primary">ADD</button>
+                                    </li>
+                                    
+                                    <li>
+                                        <button type="submit" className="button secondary" onClick={ () => setModal(false)}>BACK</button>
+                                    </li>
 
-                            </ul>
+                                </ul>
 
-                        </form>
+                            </form>
 
-                    </div>
+                        </div>
+                    }
+                    
 
                     <div className="travel-list">
                         <table>
@@ -140,7 +161,7 @@ const Travels = () => {
                                         <td>{product.price}</td>
                                         <td>{product.stock}</td>
                                         <td>
-                                            <button>Edit</button>
+                                            <button onClick={() => openModal(product)}>Edit</button>
                                             <button>Delete</button>
                                         </td>
                                     </tr>
