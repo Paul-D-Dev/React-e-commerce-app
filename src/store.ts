@@ -10,13 +10,13 @@ const cartItems = Cookie.getJSON('cartItems') || [];
 
 const userInfos = Cookie.getJSON('userInfos') || null;
 
-const initialState = {cart: {cartItems}, user : {userInfos}};
+const initialState = {cart: {cartItems}, userSignin : {userInfos}};
 
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailReducer,
     cart: cartReducer,
-    user: userSignInReducer,
+    userSignin: userSignInReducer,
 })
 
 // Need to declare global to use Redux DEVTOOLS Extension

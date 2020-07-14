@@ -14,7 +14,7 @@ type payloadUser = {
 }
 
 interface Rootstate {
-    user: payloadUser;
+    userSignin: payloadUser;
 }
 
 const SignIn = () => {
@@ -35,9 +35,9 @@ const SignIn = () => {
         dispatch(signin(email, password))
     };
 
-    // Get the user from the store.user
-    const userSignin = useSelector((state: Rootstate) => state.user)
-    // desctructure the object user.
+    // Get the user from the store.userSignin
+    const userSignin = useSelector((state: Rootstate) => state.userSignin)
+    // desctructure the object userSignin.
     const { loading, userInfos, error } = userSignin;
 
     const dispatch = useDispatch()
