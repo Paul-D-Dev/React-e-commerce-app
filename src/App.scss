@@ -29,6 +29,12 @@ $color-blue-dark: #203040;
     font-weight: bold;
   }
 
+  .header-links {
+    width: 10rem;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
   .header-links a:hover {
     color :$color-link;
   }

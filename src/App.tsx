@@ -5,7 +5,20 @@ import ProductDetail from './components/ProductDetail';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import SignIn from './components/SignIn';
+import { useSelector } from 'react-redux';
+import { User } from './models/user';
 
+
+type payloadUser = {
+  loading: boolean,
+  // Same userInfos from store redux
+  userInfos: User,
+  error: string,
+}
+
+interface Rootstate {
+  userSignin: payloadUser;
+}
 
 const openMenu = () => {
   const sidebar = document.querySelector('.sidebar');
@@ -13,22 +26,37 @@ const openMenu = () => {
 }
 
 const App = () => {
+
+  const userSignin = useSelector((state: Rootstate) => state.userSignin);
+  const { userInfos } = userSignin;
+  console.log(userInfos);
+  
   
   return (
   <Router>
     <div className="grid-container">
 
       <header className="header">
+
         <div className="brand">
           <button onClick={openMenu}>
             &#9776;
           </button>
           <Link to="/">Dream Travel</Link>
         </div>
+        
         <div className="header-links">
           <a href="cart">Cart</a>
-          <Link to="/signin">Sign in</Link>
+
+          {
+            userInfos ? 
+              <Link to='/profile'>{userInfos.name}</Link>
+            :
+              <Link to="/signin">Sign in</Link>
+          }
+
         </div>
+
       </header>
 
       <aside className="sidebar">
