@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Cart from './components/Cart';
 import SignIn from './components/SignIn';
 import Register from './components/Register';
+import Travels from './pages/Travels';
 import { useSelector } from 'react-redux';
 import { User } from './models/user';
 
@@ -71,6 +72,7 @@ const App = () => {
 
       <main className="main">
         <div className="content">
+          <Route path='/travels' component={Travels}></Route>
           <Route path='/register' component={Register}></Route>
           <Route path='/signin' component={SignIn}></Route>
           <Route path="/products/:id" component={ProductDetail}></Route>

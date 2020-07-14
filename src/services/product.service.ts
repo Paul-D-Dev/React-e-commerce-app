@@ -16,4 +16,12 @@ export default class ProductService {
         const {data} = await axios.get(`/api/products/${id}`);
         return data;
     }
+
+    static async addTravel(travel: Product, token: string) {
+        const { data } = await axios.post('/api/products', travel, 
+        {headers : {
+            'Authorization': 'Bearer ' + token
+        }})
+        return data;
+    }
  }
