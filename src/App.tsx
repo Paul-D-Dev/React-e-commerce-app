@@ -1,16 +1,17 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import './App.scss';
-import ProductDetail from './components/ProductDetail';
-import Home from './components/Home';
-import Cart from './components/Cart';
-import SignIn from './components/SignIn';
-import Register from './components/Register';
-import Travels from './pages/Travels';
-import Shipping from './pages/Shipping';
-import Payment from './pages/Payment';
 import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import './App.scss';
+import Cart from './components/Cart';
+import Home from './components/Home';
+import ProductDetail from './components/ProductDetail';
+import Register from './components/Register';
+import SignIn from './components/SignIn';
 import { User } from './models/user';
+import Payment from './pages/Payment';
+import PlaceOrder from './pages/PlaceOrder';
+import Shipping from './pages/Shipping';
+import Travels from './pages/Travels';
 
 
 type payloadUser = {
@@ -74,6 +75,7 @@ const App = () => {
 
       <main className="main">
         <div className="content">
+          <Route path='/placeorder' component={PlaceOrder}></Route>
           <Route path='/payment' component={Payment}></Route>
           <Route path='/shipping' component={Shipping}></Route>
           <Route path='/travels' component={Travels}></Route>
