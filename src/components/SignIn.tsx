@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, RouteComponentProps } from 'react-router-dom';
 import { signin } from '../actions/userActions';
 import './styles/sign-in.scss';
 import { User } from '../models/user';
@@ -17,7 +17,7 @@ interface Rootstate {
     userSignin: payloadUser;
 }
 
-const SignIn = () => {
+const SignIn: FunctionComponent<RouteComponentProps> = ({location}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -42,12 +42,13 @@ const SignIn = () => {
 
     const dispatch = useDispatch()
     const history = useHistory();
+    const redirect = location.search ? location.search.split("=")[1] : '/';
 
-    useEffect(() => {        
+    useEffect(() => {
         if(userInfos) {
-            history.push('/')
+            history.push(redirect)
         }
-    }, [history, userInfos])
+    }, [history, redirect, userInfos])
 
     
     return (
@@ -86,7 +87,7 @@ const SignIn = () => {
                     </li>
 
                     <li>
-                        <Link to='/register' className="button secondary text-center">Create your Dream Traval account</Link>
+                        <Link to={redirect === '/' ? "/register" : "/register?redirect=" + redirect} className="button secondary text-center">Create your Dream Traval account</Link>
                     </li>
                 </ul>
 

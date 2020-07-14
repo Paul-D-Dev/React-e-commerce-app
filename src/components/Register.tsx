@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, RouteComponentProps } from 'react-router-dom';
 import './styles/sign-in.scss';
 import { User } from '../models/user';
 import { register } from '../actions/userActions';
@@ -17,7 +17,7 @@ interface Rootstate {
     userRegister: payloadUser;
 }
 
-const Register = () => {
+const Register: FunctionComponent<RouteComponentProps> = ({location}) => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -48,12 +48,14 @@ const Register = () => {
 
     const dispatch = useDispatch()
     const history = useHistory();
+    const redirect = location.search ? location.search.split("=")[1] : '/';
+
 
     useEffect(() => {        
         if(userInfos) {
-            history.push('/')
+            history.push(redirect)
         }
-    }, [history, userInfos])
+    }, [history, redirect, userInfos])
 
     
     return (
@@ -73,8 +75,8 @@ const Register = () => {
                     </li>
 
                     <li>
-                        <label htmlFor="email">Name</label>
-                        <input type="Name" id="Name" onChange={(e) => setNameForm(e.target.value)}/>
+                        <label htmlFor="name">Name</label>
+                        <input type="name" id="name" onChange={(e) => setNameForm(e.target.value)}/>
                     </li>
 
                     <li>
@@ -92,7 +94,8 @@ const Register = () => {
                     </li>
 
                     <li>
-                        Already have an account ? <Link to='/signin' className="button secondary text-center">Sign-In</Link>
+                        Already have an account ?                         
+                        <Link to={redirect === '/' ? "/signin" : "/register?redirect=" + redirect} className="button secondary text-center">Sign-In</Link>
                     </li>
 
                 </ul>

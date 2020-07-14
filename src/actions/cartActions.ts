@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from './../constants/cartConstants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING } from './../constants/cartConstants';
 import CartService from "../services/cart.service";
 import Cookie from 'js-cookie';
 
@@ -32,4 +32,8 @@ const removeFromCart = (productId: string) => (dispatch: any, getState: any) => 
     Cookie.set("cartItems", JSON.stringify(cartItems));
 }
 
-export {addToCart, removeFromCart};
+const saveShipping = (address: any) => (dispatch: any) => {
+    dispatch({ type: CART_SAVE_SHIPPING, payload : address});
+}
+
+export { addToCart, removeFromCart, saveShipping };
