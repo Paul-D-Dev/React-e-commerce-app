@@ -8,6 +8,7 @@ import SignIn from './components/SignIn';
 import Register from './components/Register';
 import Travels from './pages/Travels';
 import Shipping from './pages/Shipping';
+import Payment from './pages/Payment';
 import { useSelector } from 'react-redux';
 import { User } from './models/user';
 
@@ -73,6 +74,7 @@ const App = () => {
 
       <main className="main">
         <div className="content">
+          <Route path='/payment' component={Payment}></Route>
           <Route path='/shipping' component={Shipping}></Route>
           <Route path='/travels' component={Travels}></Route>
           <Route path='/register' component={Register}></Route>

@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING } from './../constants/cartConstants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING, CART_SAVE_PAYMENT } from './../constants/cartConstants';
 import CartService from "../services/cart.service";
 import Cookie from 'js-cookie';
 
@@ -36,4 +36,8 @@ const saveShipping = (address: any) => (dispatch: any) => {
     dispatch({ type: CART_SAVE_SHIPPING, payload : address});
 }
 
-export { addToCart, removeFromCart, saveShipping };
+const savePayment = (payment: any) => (dispatch: any) => {
+    dispatch({ type: CART_SAVE_PAYMENT, payload : payment});
+}
+
+export { addToCart, removeFromCart, saveShipping, savePayment };
