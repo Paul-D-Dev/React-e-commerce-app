@@ -20,7 +20,7 @@ interface Rootstate {
 }
 const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location}) => {
 
-    const productId = +match.params.id;
+    const paramsId = match.params.id;
     const qtyProduct = +location.search.split('=')[1];
     const history = useHistory();
     
@@ -43,13 +43,13 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
 
     const subTotal = subTotalMethod(cartItems);
 
-    const modifyQtyFromCart = (productId: number, e: React.ChangeEvent<HTMLSelectElement>) => {
+    const modifyQtyFromCart = (productId: string, e: React.ChangeEvent<HTMLSelectElement>) => {
         const newQty = +e.target.value
         dispatch(addToCart(productId, newQty))
-        history.replace('/cart/products3?qty=' + newQty)
+        history.replace('/cart/products' + paramsId + '?qty=' + newQty)
     }
 
-    const removeFromCartHandler = (productId: number) => {
+    const removeFromCartHandler = (productId: string) => {
         dispatch(removeFromCart(productId));
     }
 
@@ -60,10 +60,10 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
     const dispatch = useDispatch();
     
     useEffect(() => {
-        if(productId) {
-            dispatch(addToCart(productId, qtyProduct ))
+        if(paramsId) {
+            dispatch(addToCart(paramsId, qtyProduct ))
         }
-    }, [dispatch, productId, qtyProduct])
+    }, [dispatch, paramsId, qtyProduct])
     return (
         <div>
 
@@ -84,22 +84,22 @@ const Cart: FunctionComponent<RouteComponentProps<Params>> = ({match, location})
                                 <div>Cart is empty</div>
                             :
                                 cartItems.map( item => 
-                                    <li key={item.id}>
+                                    <li key={item._id}>
 
                                         <div className="cart-img">
                                             <img src={item.image} alt={item.name}/>
                                         </div>
 
                                         <div className="cart-name">
-                                            <Link to={"/products/" + item.id}>{item.name}</Link>
+                                            <Link to={"/products/" + item._id}>{item.name}</Link>
                                             <div>
                                                 Quantity
-                                                <select value={item.quantity} onChange={(e) => modifyQtyFromCart(item.id, e)}>
+                                                <select value={item.quantity} onChange={(e) => modifyQtyFromCart(item._id, e)}>
                                                     {qtyToArray(item.stock).map(x => (
                                                         <option key={x+1} value={x+1}>{x + 1}</option>
                                                     ))}
                                                 </select>
-                                                <button type="button" className="button" onClick={() => removeFromCartHandler(item.id)}>
+                                                <button type="button" className="button" onClick={() => removeFromCartHandler(item._id)}>
                                                     Delete
                                                 </button>
                                             </div>
