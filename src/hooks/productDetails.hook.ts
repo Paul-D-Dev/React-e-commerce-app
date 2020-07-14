@@ -15,7 +15,7 @@ interface RootState {
 }
     
 
-const useProductDetails = (productId: number) => {
+const useProductDetails = (productId: string) => {
 
     const productDetail = useSelector((state: RootState) => state.productDetails);
     const {product, loading, error} = productDetail;

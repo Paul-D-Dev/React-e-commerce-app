@@ -17,7 +17,7 @@ const listProducts = () => async (dispatch: any) => {
     }
 }
 
-const productDetails = (productId: number) => async (dispatch: any) => {
+const productDetails = (productId: string) => async (dispatch: any) => {
     try {
         dispatch({type : PRODUCT_DETAILS_REQUEST, payload : productId});
         const data = await ProductService.getProduct(productId);
@@ -30,9 +30,16 @@ const productDetails = (productId: number) => async (dispatch: any) => {
 const createTravel = (travel: Product) => async (dispatch: any, getState: any) => {
     try {
         dispatch({type : PRODUCT_CREATE_REQUEST});
-        const { userSignin: { userInfos } } = getState();        
-        const data = await ProductService.addTravel(travel, userInfos.token)
-        dispatch({type: PRODUCT_CREATE_SUCCESS, payload: data})
+        const { userSignin: { userInfos } } = getState();     
+        
+        if(travel._id) {
+            const data = await ProductService.updateTravel(travel, userInfos.token);
+            dispatch({type: PRODUCT_CREATE_SUCCESS, payload: data})
+        } else {
+            const data = await ProductService.addTravel(travel, userInfos.token)
+            dispatch({type: PRODUCT_CREATE_SUCCESS, payload: data})
+        }
+
     } catch (error) {
         dispatch({type: PRODUCT_CREATE_FAIL, payload: error.message})
     }

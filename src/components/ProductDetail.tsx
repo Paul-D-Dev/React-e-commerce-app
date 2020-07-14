@@ -14,7 +14,7 @@ const ProductDetail: FunctionComponent<RouteComponentProps<Params>> = ({match}) 
 
     const [qty, setQty] = useState(1);
     
-    const productReducer = useProductDetails(+match.params.id);
+    const productReducer = useProductDetails(match.params.id);
 
     const product = productReducer.product;
 

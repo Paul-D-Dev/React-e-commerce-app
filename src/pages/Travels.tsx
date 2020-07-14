@@ -25,7 +25,7 @@ interface Rootstate {
 
 const Travels = () => {
 
-    const [id, setId]               = useState('');
+    const [_id, setId]               = useState('');
     const [name, setName]           = useState('');
     const [category, setCategory]   = useState('');
     const [price, setPrice]         = useState(0);
@@ -43,7 +43,7 @@ const Travels = () => {
 
     const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(createTravel({name, category, image, price, stock}))
+        dispatch(createTravel({_id, name, category, image, price, stock}))
     };
 
     const openModal = (travel?: Product) => {
@@ -65,17 +65,22 @@ const Travels = () => {
         }
     }
 
-    const travaelSave = useSelector((state: Rootstate) => state.createTravel);
-    const { loading: loadingCreate, success, error: errorCreate } = travaelSave;
+
+    const travelSave = useSelector((state: Rootstate) => state.createTravel);
+    const { loading: loadingCreate, success: successCreate, error: errorCreate } = travelSave;
+
 
     const productList = useSelector((state: Rootstate) => state.productList);
     const { loading, products, error } = productList; 
 
     const dispatch = useDispatch()
 
-    useEffect(() => {        
+    useEffect(() => {    
+        if(successCreate) {
+            setModal(false);
+        }    
         dispatch(listProducts());
-    }, [dispatch])
+    }, [dispatch, successCreate])
 
     
 
@@ -104,7 +109,7 @@ const Travels = () => {
                                     <li>
                                         {loadingCreate && <div>Loading...</div>}
                                         {errorCreate && <div>{errorCreate}</div>}
-                                        {success && <div>Travel adding</div>}
+                                        {successCreate && <div>{_id ? "Travel updating" : "Travel adding"}</div>}
                                     </li>
 
                                     <li>
@@ -133,7 +138,7 @@ const Travels = () => {
                                     </li>
 
                                     <li>
-                                        <button type="submit" className="button primary">{id ? 'UPDATE' : 'ADD'}</button>
+                                        <button type="submit" className="button primary">{_id ? 'UPDATE' : 'ADD'}</button>
                                     </li>
                                     
                                     <li>
