@@ -46,14 +46,23 @@ const Travels = () => {
         dispatch(createTravel({name, category, image, price, stock}))
     };
 
-    const openModal = (travel: Product) => {
-        setModal(true);
-        setId(travel._id || '')
-        setNameInput(travel.name)
-        setCategoryInput(travel.category)
-        setImageInput(travel.image)
-        setPriceInput(travel.price)
-        setStockInput(travel.stock)
+    const openModal = (travel?: Product) => {
+        setModal(!modal);
+        if(travel && travel._id) {
+            setId(travel._id);
+            setNameInput(travel.name);
+            setCategoryInput(travel.category);
+            setImageInput(travel.image);
+            setPriceInput(travel.price);
+            setStockInput(travel.stock);
+        } else {
+            setId('');
+            setNameInput('');
+            setCategoryInput('');
+            setImageInput('');
+            setPriceInput(0);
+            setStockInput(0);
+        }
     }
 
     const travaelSave = useSelector((state: Rootstate) => state.createTravel);
@@ -77,7 +86,7 @@ const Travels = () => {
 
                     <div className="travel-header">
                         <h3>Travels</h3>
-                        <button className="button primary" onClick={() => setModal(true)}>Create Travel</button>
+                        <button className="button primary" onClick={() => openModal()}>Create Travel</button>
                     </div>
 
                     {
@@ -124,7 +133,7 @@ const Travels = () => {
                                     </li>
 
                                     <li>
-                                        <button type="submit" className="button primary">ADD</button>
+                                        <button type="submit" className="button primary">{id ? 'UPDATE' : 'ADD'}</button>
                                     </li>
                                     
                                     <li>
