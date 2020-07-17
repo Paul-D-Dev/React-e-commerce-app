@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import CheckoutSteps from '../components/CheckoutSteps';
 import '../components/styles/cart.scss';
+import './styles/place-order.scss'
 import { ProductReducer } from '../models/product';
 
 
@@ -41,9 +42,7 @@ const PlaceOrder = () => {
 
     if(!shipping) {
         history.push('/shipping');
-    }
-    
-    if(!payment) {
+    } else if (!payment) {
         history.push('/payment');
     }
     
@@ -58,9 +57,13 @@ const PlaceOrder = () => {
     }
 
     const subTotal = subTotalMethod(cartItems);
+    const itemsPrice = subTotal.qty * subTotal.price;
+    const taxPrice = 0.2 * itemsPrice;
+    const totalPrice = itemsPrice + taxPrice;
 
-    const checkoutHandler = () => {
-        history.push('/signin?redirect=shipping')
+
+    const placeOrderHandler = () => {
+
     }
 
     return (
@@ -126,10 +129,26 @@ const PlaceOrder = () => {
                 </div>
 
                 <div className="placeorder-action">
-                    <h3>Total ( {subTotal.qty} items) : $ {subTotal.price} </h3>
-                    <button className="button primary width100" disabled={cartItems.length === 0} onClick={checkoutHandler}>
-                        Confirm command
-                    </button>
+
+                    <button className="button primary width100" onClick={placeOrderHandler}>Place Order</button>
+                    <ul>
+                        <li>
+                            <h3>Order Summury</h3>
+                        </li>
+                        <li>
+                            <div>Items :</div>
+                            <div>$ {itemsPrice}</div>
+                        </li>
+                        <li>
+                            <div>Tax :</div>
+                            <div>$ {taxPrice}</div>
+                        </li>
+                        <li>
+                            <div>Order total</div>
+                            <div>$ {totalPrice}</div>
+                        </li>
+                    </ul>
+
                 </div>
 
             </div>
